@@ -23,8 +23,8 @@ CORS(app)  # Enable CORS for all routes
 # ============================================================================
 class Config:
     # Model path - Railway will look for this
-    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_20251117_142933.keras')
-    METADATA_PATH = os.getenv('METADATA_PATH', 'results/model_metadata_20251117_142933.json')
+    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_20251117_202635.keras')
+    METADATA_PATH = os.getenv('METADATA_PATH', 'results/model_metadata_20251117_202635.json')
     
     # Image settings
     IMG_SIZE = (224, 224)
