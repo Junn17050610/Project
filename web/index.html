@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Cuaca Berdasarkan Gambar Awan</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Prediksi Cuaca Berbasis Gambar Awan</h1>
+        <p class="subtitle">Upload atau capture gambar awan untuk memprediksi cuaca</p>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="upload-section">
+            <label for="fileInput" class="upload-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                </svg>
+                <div>Upload Gambar</div>
+                <input type="file" id="fileInput" accept="image/*">
+            </label>
+
+            <label for="cameraInput" class="capture-btn">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <div>Capture dari Kamera</div>
+                <input type="file" id="cameraInput" accept="image/*" capture="environment">
+            </label>
+        </div>
+
+        <div class="preview-section" id="previewSection">
+            <div class="placeholder">Belum ada gambar yang dipilih</div>
+            <img id="imagePreview" style="display: none;">
+        </div>
+
+        <button class="predict-btn" id="predictBtn" disabled>Prediksi Cuaca</button>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-icon" id="resultIcon"></div>
+            <div class="result-title" id="resultTitle"></div>
+            <div class="result-description" id="resultDescription"></div>
+            <div class="confidence" id="confidenceText"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
