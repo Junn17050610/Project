@@ -1,23 +1,6 @@
-# Requirements untuk Training Model dan Backend API
-# Versi yang sudah ditest dan kompatibel
-
-# Core ML & Deep Learning
-# tensorflow==2.20.0
-keras==3.12.0
-numpy==1.26.4
-
-# Image Processing
-Pillow==10.0.0
-
-# Backend API
-flask==2.3.3
+Flask==2.3.3
 flask-cors==4.0.0
-
-tensorflow-cpu==2.13.0
 gunicorn==21.2.0
-
-# Optional: Untuk GPU support (jika ada GPU NVIDIA)
-# tensorflow-gpu==2.13.0
-
-# Note: Install dengan perintah:
-# pip install -r requirements.txt
+tensorflow==2.13.0
+numpy==1.24.3
+Pillow==9.5.0
