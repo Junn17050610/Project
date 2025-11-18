@@ -1,6 +1,6 @@
 
         // Konfigurasi
-        const API_URL = 'http://localhost:5000/api/predict'; 
+        const API_URL = 'https://project-production-c482.up.railway.app/api/predict'; 
 
         // Variabel global
         let selectedFile = null;
