@@ -1,3 +1,8 @@
+"""
+Flask Backend API - Production Ready for Railway Deployment
+Weather Prediction System
+"""
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import tensorflow as tf
@@ -28,11 +33,12 @@ class Config:
     
     # Image settings
     IMG_SIZE = (224, 224)
-    CLASSES = ['hujan', 'tidak_hujan']  # Default, will be overridden by metadata
+    CLASSES = ['tidak_hujan', 'hujan']  # Default, will be overridden by metadata
     
     # Server settings
-    PORT = int(os.getenv('PORT', 5000))
+    PORT = int(os.getenv('PORT', 8080))  # Railway uses dynamic PORT
     DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+    HOST = os.getenv('HOST', '0.0.0.0')
 
 # ============================================================================
 # LOAD MODEL AND METADATA
