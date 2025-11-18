@@ -5,6 +5,7 @@ Weather Prediction System
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask import render_template
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -266,6 +267,9 @@ def internal_error(error):
         'message': 'Internal server error'
     }), 500
 
+@app.route('/web')
+def web_ui():
+    return render_template("index.html")
 # ============================================================================
 # RUN SERVER
 # ============================================================================

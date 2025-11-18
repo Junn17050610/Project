@@ -1,6 +1,6 @@
 
         // Konfigurasi
-        const API_URL = 'http://localhost:5000/api/predict';  // Ganti 5000 ke 5001
+        const API_URL = 'http://localhost:5000/api/predict'; 
 
         // Variabel global
         let selectedFile = null;
