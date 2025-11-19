@@ -29,8 +29,8 @@ CORS(app)  # Enable CORS for all routes
 # ============================================================================
 class Config:
     # Model path - Railway will look for this
-    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_weather_cnn_20251119_132757.h5')
-    METADATA_PATH = os.getenv('METADATA_PATH', 'results/metadata_20251119_133128.json')
+    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_weather_cnn_20251119_135654.h5')
+    METADATA_PATH = os.getenv('METADATA_PATH', 'results/metadata_20251119_141228.json')
     
     # Image settings
     IMG_SIZE = (224, 224)
