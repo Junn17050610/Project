@@ -1,0 +1,47 @@
+{
+    "timestamp": "20251119_133128",
+    "model_h5": "models17\\model_weather_cnn_20251119_132757.h5",
+    "classes": [
+        "Hujan",
+        "Tidak_Hujan"
+    ],
+    "class_indices": {
+        "Hujan": 0,
+        "Tidak_Hujan": 1
+    },
+    "num_classes": 2,
+    "dataset": {
+        "train": 188,
+        "val": 22,
+        "test": 24,
+        "total": 234
+    },
+    "hyperparameters": {
+        "img_size": [
+            224,
+            224
+        ],
+        "batch_size": 16,
+        "initial_epochs": 10,
+        "fine_tune_epochs": 20,
+        "lr_head": 0.001,
+        "lr_finetune": 1e-05,
+        "unfreeze_last_n": 40
+    },
+    "performance": {
+        "accuracy": 0.7083333333333334,
+        "precision": 0.7521008403361344,
+        "recall": 0.7083333333333334,
+        "f1": 0.6950998185117966,
+        "confusion_matrix": [
+            [
+                11,
+                1
+            ],
+            [
+                6,
+                6
+            ]
+        ]
+    }
+}
