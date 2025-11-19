@@ -29,12 +29,12 @@ CORS(app)  # Enable CORS for all routes
 # ============================================================================
 class Config:
     # Model path - Railway will look for this
-    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_weather_cnn_20251118_194711.h5')
-    METADATA_PATH = os.getenv('METADATA_PATH', 'results/model_metadata_20251118_194711.json')
+    MODEL_PATH = os.getenv('MODEL_PATH', 'models/model_weather_cnn_20251119_102209.h5')
+    METADATA_PATH = os.getenv('METADATA_PATH', 'results/model_metadata_20251119_102209.json')
     
     # Image settings
     IMG_SIZE = (224, 224)
-    CLASSES = ['tidak_hujan', 'hujan']  # Default, will be overridden by metadata
+    CLASSES = ['Hujan', 'Tidak_hujan']  # Default, will be overridden by metadata
     
     # Server settings
     PORT = int(os.getenv('PORT', 8080))  # Railway uses dynamic PORT

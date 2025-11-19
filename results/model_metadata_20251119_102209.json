@@ -1,0 +1,59 @@
+{
+    "timestamp": "20251119_102209",
+    "model_filename": "model_weather_cnn_20251119_102209.h5",
+    "architecture": "MobileNetV2 + Custom Layers",
+    "input_shape": [
+        224,
+        224,
+        3
+    ],
+    "classes": [
+        "Hujan",
+        "Tidak_Hujan"
+    ],
+    "class_indices": {
+        "Hujan": 0,
+        "Tidak_Hujan": 1
+    },
+    "num_classes": 2,
+    "hyperparameters": {
+        "batch_size": 16,
+        "epochs": 50,
+        "learning_rate": 0.0001,
+        "optimizer": "Adam",
+        "loss": "categorical_crossentropy"
+    },
+    "dataset": {
+        "train_samples": 1200,
+        "validation_samples": 237,
+        "test_samples": 242,
+        "total_samples": 1679,
+        "train_path": "dataset_split_augmented_update2/train",
+        "val_path": "dataset_split_augmented_update2/validation",
+        "test_path": "dataset_split_augmented_update2/test"
+    },
+    "performance": {
+        "accuracy": 0.9669421487603306,
+        "precision": 0.9670430662591415,
+        "recall": 0.9669421487603306,
+        "f1_score": 0.966926290416123,
+        "confusion_matrix": [
+            [
+                124,
+                3
+            ],
+            [
+                5,
+                110
+            ]
+        ]
+    },
+    "training_history": {
+        "final_train_accuracy": 0.8974999785423279,
+        "final_val_accuracy": 0.9915611743927002,
+        "final_train_loss": 0.47848135232925415,
+        "final_val_loss": 0.27060338854789734,
+        "best_epoch": 36,
+        "total_epochs_trained": 50
+    }
+}
