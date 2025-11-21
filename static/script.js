@@ -139,29 +139,18 @@
             let confidenceHTML = `<strong>Tingkat Kepercayaan: ${confidence.toFixed(2)}%</strong>`;
             
             if (probabilities) {
-          const LABEL_MAP = {
-            Hujan: "Hujan",
-            Tidak_Hujan: "Tidak Hujan",
-          };
-
-          const ORDER = ["Hujan", "Tidak_Hujan"]; // urutan fix, tidak berdasarkan dictionary JS
-
-          confidenceHTML +=
-            '<br><small style="font-size: 12px; margin-top: 8px; display: block; opacity: 0.9;">';
-          confidenceHTML += "<strong>Detail Probabilitas:</strong><br>";
-
-          ORDER.forEach((key) => {
-            if (probabilities[key] !== undefined) {
-              confidenceHTML += `${LABEL_MAP[key]}: ${probabilities[
-                key
-              ].toFixed(2)}% | `;
+                confidenceHTML += '<br><small style="font-size: 12px; margin-top: 8px; display: block; opacity: 0.9;">';
+                confidenceHTML += '<strong>Detail Probabilitas:</strong><br>';
+                for (let [className, prob] of Object.entries(probabilities)) {
+                    const classLabel = className === 'hujan' ? 'Hujan' : 'Hujan';
+                    confidenceHTML += `${classLabel}: ${prob.toFixed(2)}% | `;
+                }
+                confidenceHTML = confidenceHTML.slice(0, -3); // Hapus " | " terakhir
+                confidenceHTML += '</small>';
             }
-          });
-
-          // Hapus pemisah " | " terakhir
-          confidenceHTML = confidenceHTML.slice(0, -3);
-          confidenceHTML += "</small>";
-        }
+            
+            confidenceText.innerHTML = confidenceHTML;
+            resultSection.classList.add('show');
         }
 
         /**
