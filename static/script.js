@@ -140,15 +140,53 @@ function showResult(isRain, confidence, probabilities) {
   // Reset classes
   resultSection.classList.remove("rain", "no-rain");
 
-  // Konversi isRain ke boolean jika berupa string atau number
-  let rainStatus = isRain;
-  if (typeof isRain === "string") {
-    rainStatus = isRain.toLowerCase() === "true" || isRain === "1";
+  // Konversi isRain ke boolean dengan berbagai kemungkinan format
+  let rainStatus = false;
+  
+  if (typeof isRain === "boolean") {
+    rainStatus = isRain;
+  } else if (typeof isRain === "string") {
+    // Cek berbagai format string: "true", "True", "1", "hujan", dll
+    const lowerIsRain = isRain.toLowerCase();
+    rainStatus = lowerIsRain === "true" || lowerIsRain === "1" || lowerIsRain === "hujan";
   } else if (typeof isRain === "number") {
-    rainStatus = isRain === 1;
+    rainStatus = isRain === 1 || isRain > 0;
   }
 
   console.log("Converted rainStatus:", rainStatus, "| Type:", typeof rainStatus);
+
+  // Jika confidence > 50% dan probabilities menunjukkan hujan lebih tinggi, itu hujan
+  if (probabilities) {
+    const probs = Object.entries(probabilities);
+    console.log("All probabilities:", probs);
+    
+    // Cari probabilitas hujan
+    let hujanProb = 0;
+    let tidakHujanProb = 0;
+    
+    for (let [className, prob] of probs) {
+      const classLower = className.toLowerCase();
+      if (classLower.includes("hujan") || classLower.includes("rain")) {
+        // Jika nama class adalah "tidak_hujan" atau "no_rain", itu bukan hujan
+        if (classLower.includes("tidak") || classLower.includes("no")) {
+          tidakHujanProb = prob;
+        } else {
+          hujanProb = prob;
+        }
+      }
+    }
+    
+    console.log("Hujan prob:", hujanProb, "| Tidak hujan prob:", tidakHujanProb);
+    
+    // Override rainStatus berdasarkan probabilitas tertinggi
+    if (hujanProb > tidakHujanProb) {
+      rainStatus = true;
+    } else {
+      rainStatus = false;
+    }
+  }
+
+  console.log("Final rainStatus:", rainStatus);
 
   if (rainStatus) {
     resultSection.classList.add("rain");
@@ -173,14 +211,44 @@ function showResult(isRain, confidence, probabilities) {
     confidenceHTML +=
       '<br><small style="font-size: 12px; margin-top: 8px; display: block; opacity: 0.9;">';
     confidenceHTML += "<strong>Detail Probabilitas:</strong><br>";
+    
+    // Pisahkan probabilitas hujan dan tidak hujan
+    let hujanProb = null;
+    let tidakHujanProb = null;
+    
     for (let [className, prob] of Object.entries(probabilities)) {
-      // Perbaiki label berdasarkan nama class
-      const classLabel = className.toLowerCase().includes("hujan") || className.toLowerCase().includes("rain") 
-        ? "Hujan" 
-        : "Tidak Hujan";
-      confidenceHTML += `${classLabel}: ${prob.toFixed(2)}% | `;
+      const classLower = className.toLowerCase();
+      
+      // Deteksi class hujan vs tidak hujan
+      if (classLower.includes("tidak") || classLower.includes("no") || 
+          classLower.includes("cerah") || classLower.includes("clear")) {
+        tidakHujanProb = { name: className, prob: prob };
+      } else if (classLower.includes("hujan") || classLower.includes("rain")) {
+        hujanProb = { name: className, prob: prob };
+      }
     }
-    confidenceHTML = confidenceHTML.slice(0, -3); // Hapus " | " terakhir
+    
+    // Tampilkan dalam urutan: Hujan | Tidak Hujan
+    if (hujanProb) {
+      confidenceHTML += `Hujan: ${hujanProb.prob.toFixed(2)}%`;
+    }
+    
+    if (hujanProb && tidakHujanProb) {
+      confidenceHTML += " | ";
+    }
+    
+    if (tidakHujanProb) {
+      confidenceHTML += `Tidak Hujan: ${tidakHujanProb.prob.toFixed(2)}%`;
+    }
+    
+    // Jika tidak ada yang cocok, tampilkan semua
+    if (!hujanProb && !tidakHujanProb) {
+      for (let [className, prob] of Object.entries(probabilities)) {
+        confidenceHTML += `${className}: ${prob.toFixed(2)}% | `;
+      }
+      confidenceHTML = confidenceHTML.slice(0, -3);
+    }
+    
     confidenceHTML += "</small>";
   }
 
