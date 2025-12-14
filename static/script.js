@@ -193,13 +193,13 @@ function showResult(isRain, confidence, probabilities) {
     resultIcon.textContent = "🌧️";
     resultTitle.textContent = "HUJAN";
     resultDescription.textContent =
-      "Prediksi menunjukkan kemungkinan besar akan turun hujan";
+      "Prediksi menunjukkan kemungkinan besar akan turun hujan satu jam kedepan";
   } else {
     resultSection.classList.add("no-rain");
     resultIcon.textContent = "☀️";
     resultTitle.textContent = "TIDAK HUJAN";
     resultDescription.textContent =
-      "Prediksi menunjukkan cuaca cerah tanpa hujan";
+      "Prediksi menunjukkan cuaca cerah tanpa hujan satu jam kedepan";
   }
 
   // Tampilkan confidence dan probabilitas
