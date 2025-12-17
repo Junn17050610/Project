@@ -29,8 +29,8 @@ CORS(app)  # Enable CORS for all routes
 # ============================================================================
 class Config:
     
-    MODEL_PATH = os.getenv('MODEL_PATH', 'Best_Models/model_weather_cnn_20251119_102209.h5')
-    METADATA_PATH = os.getenv('METADATA_PATH', 'Best_Result/model_metadata_20251119_102209.json')
+    MODEL_PATH = os.getenv('MODEL_PATH', 'models_baru_1/model_weather_cnn_20251217_141415.h5')
+    METADATA_PATH = os.getenv('METADATA_PATH', 'results_baru_1/model_metadata_20251217_141415.json')
     
     # Image settings
     IMG_SIZE = (224, 224)
