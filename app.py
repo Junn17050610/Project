@@ -1,11 +1,5 @@
-"""
-Flask Backend API - Production Ready for Railway Deployment
-Weather Prediction System
-"""
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from flask import render_template
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -14,37 +8,26 @@ import io
 import json
 import os
 from datetime import datetime
-import logging
 
-# Setup logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# Initialize Flask app
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+CORS(app)  # Enable CORS untuk akses dari frontend
 
 # ============================================================================
-# CONFIGURATION
+# KONFIGURASI
 # ============================================================================
 class Config:
-    
-    SKY_DETECTOR_PATH = 'models_skyimage1/sky_detector_20251220_200710.h5'  # Model langit vs bukan langit
-    WEATHER_MODEL_PATH = 'models_baru_1/model_weather_cnn_20251217_141415.h5'  # Model hujan vs tidak hujan
-    WEATHER_METADATA_PATH = 'results_skyimage1/sky_detector_metadata_20251220_200710.json'
+    # Path models
+    SKY_DETECTOR_PATH = 'models/sky_detector_20240101_120000.h5'  # Model langit vs bukan langit
+    WEATHER_MODEL_PATH = 'models/model_weather_cnn_20240101_120000.h5'  # Model hujan vs tidak hujan
+    WEATHER_METADATA_PATH = 'results/model_metadata_20240101_120000.json'
     
     IMG_SIZE = (224, 224)
     
     # Threshold confidence
     SKY_CONFIDENCE_THRESHOLD = 0.7  # Minimal 70% yakin ini gambar langit
-    
-    # Server settings
-    # PORT = int(os.getenv('PORT', 8080))  
-    # DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-    # HOST = os.getenv('HOST', '0.0.0.0')
 
 # ============================================================================
-# LOAD MODEL AND METADATA
+# LOAD MODELS
 # ============================================================================
 print("="*70)
 print("BACKEND API - PREDIKSI CUACA 2-STAGE")
@@ -96,7 +79,7 @@ except Exception as e:
 print("="*70)
 
 # ============================================================================
-# PREPROCESSING FUNCTION
+# FUNGSI PREPROCESSING
 # ============================================================================
 def preprocess_image(image_bytes):
     """
@@ -128,126 +111,8 @@ def preprocess_image(image_bytes):
         raise Exception(f"Error preprocessing image: {str(e)}")
 
 # ============================================================================
-# API ROUTES
+# API ENDPOINTS
 # ============================================================================
-
-# @app.route('/', methods=['GET'])
-# def home():
-#     """Health check endpoint"""
-#     return jsonify({
-#         'status': 'online',
-#         'message': 'Weather Prediction API',
-#         'model_loaded': model is not None,
-#         'version': '1.0.0',
-#         'timestamp': datetime.now().isoformat(),
-#         'endpoints': {
-#             'health': 'GET /',
-#             'model_info': 'GET /api/model-info',
-#             'predict': 'POST /api/predict'
-#         }
-#     })
-
-# @app.route('/api/health', methods=['GET'])
-# def health_check():
-#     """Detailed health check"""
-#     return jsonify({
-#         'status': 'healthy' if model is not None else 'unhealthy',
-#         'model_loaded': model is not None,
-#         'metadata_loaded': metadata is not None,
-#         'timestamp': datetime.now().isoformat()
-#     })
-
-# @app.route('/api/model-info', methods=['GET'])
-# def model_info():
-#     """Get model information"""
-#     if metadata is None:
-#         return jsonify({
-#             'status': 'success',
-#             'data': {
-#                 'model_loaded': model is not None,
-#                 'classes': Config.CLASSES,
-#                 'message': 'Model loaded but metadata not available'
-#             }
-#         })
-    
-#     return jsonify({
-#         'status': 'success',
-#         'data': {
-#             'architecture': metadata.get('architecture'),
-#             'classes': metadata.get('classes'),
-#             'accuracy': metadata['performance']['accuracy'],
-#             'precision': metadata['performance']['precision'],
-#             'recall': metadata['performance']['recall'],
-#             'f1_score': metadata['performance']['f1_score'],
-#             'training_date': metadata.get('timestamp')
-#         }
-#     })
-
-# @app.route('/api/predict', methods=['POST'])
-# def predict():
-#     """Predict weather from image"""
-#     # Check if model is loaded
-#     if model is None:
-#         logger.error("Prediction failed: Model not loaded")
-#         return jsonify({
-#             'status': 'error',
-#             'message': 'Model not loaded. Please contact administrator.'
-#         }), 500
-    
-#     # Check if image is provided
-#     if 'image' not in request.files:
-#         return jsonify({
-#             'status': 'error',
-#             'message': 'No image provided'
-#         }), 400
-    
-#     file = request.files['image']
-    
-#     if file.filename == '':
-#         return jsonify({
-#             'status': 'error',
-#             'message': 'Empty filename'
-#         }), 400
-    
-#     try:
-#         # Read and preprocess image
-#         image_bytes = file.read()
-#         processed_image = preprocess_image(image_bytes)
-        
-#         # Predict
-#         predictions = model.predict(processed_image, verbose=0)
-#         predicted_class_idx = np.argmax(predictions[0])
-#         confidence = float(predictions[0][predicted_class_idx]) * 100
-        
-#         # Get class label
-#         predicted_class = Config.CLASSES[predicted_class_idx]
-        
-#         # Probabilities for all classes
-#         class_probabilities = {
-#             Config.CLASSES[i]: float(predictions[0][i]) * 100 
-#             for i in range(len(Config.CLASSES))
-#         }
-        
-#         logger.info(f"Prediction: {predicted_class} ({confidence:.2f}%)")
-        
-#         # Response
-#         return jsonify({
-#             'status': 'success',
-#             'data': {
-#                 'prediction': predicted_class,
-#                 'confidence': round(confidence, 2),
-#                 'probabilities': class_probabilities,
-#                 'is_rain': predicted_class == 'hujan',
-#                 'timestamp': datetime.now().isoformat()
-#             }
-#         })
-    
-#     except Exception as e:
-#         logger.error(f"Prediction error: {str(e)}")
-#         return jsonify({
-#             'status': 'error',
-#             'message': f'Prediction failed: {str(e)}'
-#         }), 500
 
 @app.route('/')
 def home():
@@ -413,7 +278,7 @@ def health_check():
 def not_found(error):
     return jsonify({
         'status': 'error',
-        'message': 'Endpoint not found'
+        'message': 'Endpoint tidak ditemukan'
     }), 404
 
 @app.errorhandler(500)
@@ -422,25 +287,23 @@ def internal_error(error):
         'status': 'error',
         'message': 'Internal server error'
     }), 500
-
 @app.route('/web')
 def web_ui():
     return render_template("index.html")
 # ============================================================================
-# RUN SERVER
+# RUN APP
 # ============================================================================
 
 if __name__ == '__main__':
-    logger.info("="*70)
-    logger.info("STARTING FLASK SERVER")
-    logger.info("="*70)
-    logger.info(f"Port: {Config.PORT}")
-    logger.info(f"Debug: {Config.DEBUG}")
-    logger.info("="*70)
+    print("\n" + "="*70)
+    print("Memulai Flask API Server...")
+    print("="*70)
+    print(f"API tersedia di: http://localhost:5000")
+    print(f"Endpoints:")
+    print(f"  - GET  / (Status API)")
+    print(f"  - GET  /api/model-info (Info model)")
+    print(f"  - POST /api/predict (Prediksi cuaca)")
+    print(f"  - GET  /api/health (Health check)")
+    print("="*70 + "\n")
     
-    # Run server
-    app.run(
-        host='0.0.0.0',  # Listen on all interfaces (required for Railway)
-        port=Config.PORT,
-        debug=Config.DEBUG
-    )
+    app.run(debug=True, host='0.0.0.0', port=5000)
