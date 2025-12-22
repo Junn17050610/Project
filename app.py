@@ -24,8 +24,8 @@ CORS(app)  # Enable CORS untuk akses dari frontend
 class Config:
     # Path models
     SKY_DETECTOR_PATH = 'models/sky_detector_20240101_120000.h5'  # Model langit vs bukan langit
-    WEATHER_MODEL_PATH = 'models/model_weather_cnn_20240101_120000.h5'  # Model hujan vs tidak hujan
-    WEATHER_METADATA_PATH = 'results/model_metadata_20240101_120000.json'
+    WEATHER_MODEL_PATH = 'models_baru_1/model_weather_cnn_20251217_141415.h5'  # Model hujan vs tidak hujan
+    WEATHER_METADATA_PATH = 'results_baru_1/model_metadata_20251217_141415.json'
     
     IMG_SIZE = (224, 224)
     
