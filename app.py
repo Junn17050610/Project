@@ -1,5 +1,11 @@
+"""
+Flask Backend API - Production Ready for Railway Deployment
+Weather Prediction System
+"""
+
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from flask import render_template
 import tensorflow as tf
 from tensorflow import keras
 import numpy as np
@@ -8,7 +14,7 @@ import io
 import json
 import os
 from datetime import datetime
-
+import logging
 app = Flask(__name__)
 CORS(app)  # Enable CORS untuk akses dari frontend
 
