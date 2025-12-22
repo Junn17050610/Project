@@ -33,14 +33,15 @@ class Config:
     WEATHER_MODEL_PATH = 'models_baru_1/model_weather_cnn_20251217_141415.h5'  # Model hujan vs tidak hujan
     WEATHER_METADATA_PATH = 'results_skyimage1/sky_detector_metadata_20251220_200710.json'
     
-    # Image settings
     IMG_SIZE = (224, 224)
-    CLASSES = ['Hujan', 'Tidak_hujan'] 
+    
+    # Threshold confidence
+    SKY_CONFIDENCE_THRESHOLD = 0.7  # Minimal 70% yakin ini gambar langit
     
     # Server settings
-    PORT = int(os.getenv('PORT', 8080))  
-    DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
-    HOST = os.getenv('HOST', '0.0.0.0')
+    # PORT = int(os.getenv('PORT', 8080))  
+    # DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
+    # HOST = os.getenv('HOST', '0.0.0.0')
 
 # ============================================================================
 # LOAD MODEL AND METADATA
