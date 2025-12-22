@@ -268,7 +268,6 @@ function showNonSkyError(message, detail) {
         ${detail.suggestion || 'Silakan upload gambar langit/awan untuk prediksi cuaca'}
       </div>
       <div style="font-size: 12px; padding: 10px; background: rgba(255,255,255,0.2); border-radius: 5px;">
-        Sky Confidence: ${detail.sky_confidence}%<br>
         <em>Sistem mendeteksi gambar ini bukan gambar langit</em>
       </div>
     </div>
