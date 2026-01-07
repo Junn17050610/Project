@@ -188,13 +188,13 @@ function showResult(isRain, confidence, probabilities, validation = null) {
     resultIcon.textContent = "🌧️";
     resultTitle.textContent = "HUJAN";
     resultDescription.textContent =
-      "Prediksi menunjukkan kemungkinan besar akan turun hujan dalam kurun waktu 1-2 jam";
+      "Prediksi menunjukkan kemungkinan besar akan turun hujan dalam kurun waktu 1 jam";
   } else {
     resultSection.classList.add("no-rain");
     resultIcon.textContent = "☀️";
     resultTitle.textContent = "TIDAK HUJAN";
     resultDescription.textContent =
-      "Prediksi menunjukkan cuaca cerah tanpa hujan dalam kurun waktu 1-2 jam";
+      "Prediksi menunjukkan cuaca cerah tanpa hujan dalam kurun waktu 1 jam";
   }
 
   // Tampilkan confidence dan probabilitas
